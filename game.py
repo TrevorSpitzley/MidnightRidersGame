@@ -3,7 +3,18 @@
 import pygame
 import sys
 sys.path.append('..')
-import league
+from ..engine import league
 from player import Player
 
-#def quit(self):
+
+def quit(self):
+    pygame.exit()
+    sys.exit()
+
+
+league.Settings.height = 768
+league.Settings.width = 768
+
+
+
+
