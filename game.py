@@ -1,10 +1,11 @@
-#This game is the dopest dope you've ever smoked, my guy
+# This game is the dopest dope you've ever smoked, my guy
 
 
 import pygame
 import sys
-sys.path.append('..')
-from ..engine import league
+
+sys.path.append('.')
+from engine.league import league
 from player import Player
 
 
@@ -15,7 +16,5 @@ def quit(self):
 
 league.Settings.height = 768
 league.Settings.width = 768
-
-
-
-
+# Our tilesheet is 16x16 pixels
+league.Settings.tile_size = 16
