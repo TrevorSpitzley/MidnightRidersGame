@@ -5,9 +5,13 @@ import pygame
 import sys
 
 sys.path.append('.')
+import helperFuncs
 from engine.league import league
 from player import Player
 
+
+#This is the event counter for our manually created events, call with evCnt()
+evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
 def quit(self):
     pygame.exit()
