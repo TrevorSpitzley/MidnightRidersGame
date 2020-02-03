@@ -47,15 +47,19 @@ class Player(Character):
                 pass
 
         def moveRight(self, time):
+            return 0
 
 
         def moveUp(self, time):
+            return 0
 
 
         def moveDown(self, time):
+            return 0
 
 
         def update(self, time):
+            return 0
 
 
         def getHit(self, damage):
