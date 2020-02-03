@@ -13,8 +13,7 @@ evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
 
 def quit(self):
-    pygame.exit()
-    sys.exit()
+    engine.running = False
 
 
 engine = league.Engine("Midnight Riders")
