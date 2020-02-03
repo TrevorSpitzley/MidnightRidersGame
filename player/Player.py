@@ -1,8 +1,10 @@
 import pygame
 import sys
 sys.path.append('..')
-from engine import *
-class Player():
+from engine.league.league import *
+
+
+class Player(Character):
 
     def __init__(self):
         super().__init__(x, y, z)
