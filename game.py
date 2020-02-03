@@ -23,4 +23,7 @@ league.Settings.width = 768
 # Our tilesheet is 16x16 pixels
 league.Settings.tile_size = 16
 
-tilesheet = league.Spritesheet('', league.Settings.tile_size, )
+tilesheet = league.Spritesheet('./TilesetGraveyard_16.png', league.Settings.tile_size, 12)
+
+scene = league.Tilemap('./ridersScene.lvl', tilesheet, 1)
+blank = league.Tilemap('ourBackground.lvl', tilesheet, 0)
