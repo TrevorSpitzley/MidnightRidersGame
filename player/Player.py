@@ -1,7 +1,8 @@
-from league import *
 import pygame
-
-class Player(Character):
+import sys
+sys.path.append('..')
+from engine import *
+class Player():
 
     def __init__(self):
         super().__init__(x, y, z)
