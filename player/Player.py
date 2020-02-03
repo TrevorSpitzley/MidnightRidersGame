@@ -20,7 +20,7 @@ class Player(Character):
         self.worldSize = (Settings.width, Settings.height)
         self.blocks = pygame.sprite.Group()
         self.collideFunction = pygame.sprite.collide_circle #can use other shapes
-        solf.collisions = []
+        self.collisions = []
 
         #collision sprite
         self.collider = Drawable()
@@ -30,4 +30,37 @@ class Player(Character):
         #HUD/Overlay
         self.font = pygame.font.Font('../Beware.ttf', 32)
         self.overlay = self.font.render(str(self.health) + "    3 Lives", True, (0, 0, 0))
+
+
+        def moveLeft(self, time):
+            amount = self.delta * time
+            try:
+                if self.x - amount < 0:
+                    raise OffScreenLeftException
+                else:
+                    self.x = self.x - amount
+                    self.update(0)
+                    while(len(self.collisions) != 0):
+                        self.x = self.x + amount
+                        self.update(0)
+            except:
+                pass
+
+        def moveRight(self, time):
+
+
+        def moveUp(self, time):
+
+
+        def moveDown(self, time):
+
+
+        def update(self, time):
+
+
+        def getHit(self, damage):
+            now = pygame.time.get_ticks()
+            if now - self.lastHit > 1000:
+                self.lastHit = self.health - damage
+                self.lastHit = now
 
