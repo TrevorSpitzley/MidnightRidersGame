@@ -37,39 +37,39 @@ class Player(Character):
         self.overlay = self.font.render(str(self.health) + "    3 Lives", True, (0, 0, 0))
 
 
-        def moveLeft(self, time):
-            amount = self.delta * time
-            try:
-                if self.x - amount < 0:
-                    raise OffScreenLeftException
-                else:
-                    self.x = self.x - amount
+    def moveLeft(self, time):
+        amount = self.delta * time
+        try:
+            if self.x - amount < 0:
+                raise OffScreenLeftException
+            else:
+                self.x = self.x - amount
+                self.update(0)
+                while(len(self.collisions) != 0):
+                    self.x = self.x + amount
                     self.update(0)
-                    while(len(self.collisions) != 0):
-                        self.x = self.x + amount
-                        self.update(0)
-            except:
-                pass
+        except:
+            pass
 
-        def moveRight(self, time):
-            return 0
+    def moveRight(self, time):
+        return 0
 
 
-        def moveUp(self, time):
-            return 0
+    def moveUp(self, time):
+        return 0
 
 
-        def moveDown(self, time):
-            return 0
+    def moveDown(self, time):
+        return 0
 
 
-        def update(self, time):
-            return 0
+    def update(self, time):
+        return 0
 
 
-        def getHit(self, damage):
-            now = pygame.time.get_ticks()
-            if now - self.lastHit > 1000:
-                self.lastHit = self.health - damage
-                self.lastHit = now
+    def getHit(self, damage):
+        now = pygame.time.get_ticks()
+        if now - self.lastHit > 1000:
+            self.lastHit = self.health - damage
+            self.lastHit = now
 

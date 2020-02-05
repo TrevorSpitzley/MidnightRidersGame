@@ -43,6 +43,9 @@ player.rect.y = 350
 # Add to objects and drawables
 engine.objects.append(player)
 engine.drawables.add(player)
+# Key event functions
+engine.key_events[pygame.K_a] = player.moveLeft
+engine.events[pygame.USEREVENT + 1] = player.moveLeft
 # Quit function
 engine.events[pygame.QUIT] = quit
 # Run the engine
