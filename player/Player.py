@@ -16,8 +16,9 @@ class Player(Character):
         self.y = y
 
         #Image!!!
-        self.image = pygame.image.load('../sprites/Player_sprites/IdleFront.gif').convert_alpha()
-        self.image = pygame.transform.scale(self.image, (64, 64))
+        self.image = pygame.image.load('./sprites/Player_sprites/IdleFront.png').convert_alpha()
+        # Tweaked size
+        self.image = pygame.transform.scale(self.image, (48, 48))
         self.rect = self.image.get_rect()
 
         #World size, and collisions
@@ -32,7 +33,7 @@ class Player(Character):
         self.collider.rect = self.collider.image.get_rect()
 
         #HUD/Overlay
-        self.font = pygame.font.Font('../Beware.ttf', 32)
+        self.font = pygame.font.Font('./Beware.ttf', 32)
         self.overlay = self.font.render(str(self.health) + "    3 Lives", True, (0, 0, 0))
 
 

@@ -32,15 +32,17 @@ backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
 # Add to drawables
 engine.drawables.add(scene.passable.sprites())
 engine.drawables.add(backdrop.passable.sprites())
-# # Create player
-# player = Player(2, 700, 700)
-# # Set scene size for boundaries
-# player.worldSize = scene_size
-# # Get rekt
-# player.rect = player.image.get_rect()
-# # Add to objects and drawables
-# engine.objects.append(player)
-# engine.drawables.add(player)
+# Create player
+player = Player(2, 700, 700)
+# Set scene size for boundaries
+player.worldSize = scene_size
+# Get rekt, set location
+player.rect = player.image.get_rect()
+player.rect.x = 350
+player.rect.y = 350
+# Add to objects and drawables
+engine.objects.append(player)
+engine.drawables.add(player)
 # Quit function
 engine.events[pygame.QUIT] = quit
 # Run the engine
