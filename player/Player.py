@@ -2,6 +2,7 @@ import pygame
 import sys
 sys.path.append('..')
 from engine.league.league import *
+#from overlay import  Overlay
 
 
 class Player(Character):
@@ -14,6 +15,8 @@ class Player(Character):
         self.delta = 512 #BIGGER = FASTER
         self.x = x
         self.y = y
+        #self.rect.x = x
+        #self.rect.y = y
 
         #Image!!!
         self.image = pygame.image.load('./sprites/Player_sprites/IdleFront.png').convert_alpha()
@@ -64,7 +67,14 @@ class Player(Character):
 
 
     def update(self, time):
-        return 0
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.collisions = []
+        for sprite in self.blocks:
+            self.collider.rect.x = sprite.x
+            self.collider.rect.y = sprite.y
+            if pygame.sprite.collide_rect(self, self.collider):
+                self.collisions.append(sprite)
 
 
     def getHit(self, damage):
