@@ -1,9 +1,9 @@
 Grass patch = 78 or 79
 Standard rock = 0
-Hay bale = 18, 19 for top half; 30, 31 for bottom half
-Large house = 9, 10, 11 for top; 21, 22, 23 for top-middle; 33, 34, 35 for bottom-middle; 44, 45, 46 for bottom
+Hay bale = 17, 18 for top half; 29, 30 for bottom half
+Large house = 8, 9, 10 for top; 20, 21, 22 for top-middle; 32, 33, 34 for bottom-middle; 44, 45, 46 for bottom
 Various headstones = 13, 14, 15, 16, 25, 26, 27, 28
-Burnt tree = 17
+Burnt tree = 16
 Silver chest = 48
 Brown chest = 49
 Flaming torch = 50

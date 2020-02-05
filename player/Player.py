@@ -6,8 +6,9 @@ from engine.league.league import *
 
 class Player(Character):
 
-    def __init__(self):
-        super().__init__(x, y, z)
+    def __init__(self, z, x, y):
+        # Put z first to mimic his character.py and game_objects.py class
+        super().__init__(z, x, y)
         self.health = 100 #My Health
         self.lastHit = pygame.time.get_ticks() #Last booboo
         self.delta = 512 #BIGGER = FASTER
@@ -15,7 +16,7 @@ class Player(Character):
         self.y = y
 
         #Image!!!
-        self.image = pygame.image.load('../sprites/Player sprites/IdleFront.gif').convert_alpha()
+        self.image = pygame.image.load('../sprites/Player_sprites/IdleFront.gif').convert_alpha()
         self.image = pygame.transform.scale(self.image, (64, 64))
         self.rect = self.image.get_rect()
 
@@ -27,7 +28,7 @@ class Player(Character):
 
         #collision sprite
         self.collider = Drawable()
-        self.collider.image = pygame.Surface([Settings.tile_size, Settings.tile_size])
+        self.collider.image = pygame.Surface((Settings.tile_size, Settings.tile_size), pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
 
         #HUD/Overlay

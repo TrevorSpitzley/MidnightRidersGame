@@ -6,7 +6,7 @@ import sys
 import helperFuncs
 sys.path.append('.')
 from engine.league import league
-from player import Player
+from player.Player import Player
 
 # This is the event counter for our manually created events, call with evCnt()
 evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
@@ -32,6 +32,15 @@ backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
 # Add to drawables
 engine.drawables.add(scene.passable.sprites())
 engine.drawables.add(backdrop.passable.sprites())
+# # Create player
+# player = Player(2, 700, 700)
+# # Set scene size for boundaries
+# player.worldSize = scene_size
+# # Get rekt
+# player.rect = player.image.get_rect()
+# # Add to objects and drawables
+# engine.objects.append(player)
+# engine.drawables.add(player)
 # Quit function
 engine.events[pygame.QUIT] = quit
 # Run the engine
