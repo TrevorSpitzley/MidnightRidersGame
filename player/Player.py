@@ -12,7 +12,7 @@ class Player(Character):
         super().__init__(z, x, y)
         self.health = 100 #My Health
         self.lastHit = pygame.time.get_ticks() #Last booboo
-        self.delta = 512 #BIGGER = FASTER
+        self.delta = 128 #BIGGER = FASTER
         self.x = x
         self.y = y
         #self.rect.x = x
