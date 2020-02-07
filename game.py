@@ -39,13 +39,15 @@ player.worldSize = scene_size
 # Get rekt, set location
 player.rect = player.image.get_rect()
 player.rect.x = 350
+player.x = 350
 player.rect.y = 350
+player.y = 350
 # Add to objects and drawables
 engine.objects.append(player)
 engine.drawables.add(player)
 # Key event functions
 engine.key_events[pygame.K_a] = player.moveLeft
-engine.events[pygame.USEREVENT + 1] = player.moveLeft
+engine.events[pygame.USEREVENT + evCnt()] = player.moveLeft
 # Quit function
 engine.events[pygame.QUIT] = quit
 # Run the engine

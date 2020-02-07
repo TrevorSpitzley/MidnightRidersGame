@@ -62,9 +62,15 @@ class Player(Character):
     def moveDown(self, time):
         return 0
 
-
     def update(self, time):
-        return 0
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.collisions = []
+        for sprite in self.blocks:
+            self.collider.rect.x = sprite.x
+            self.collider.rect.y = sprite.y
+            if pygame.sprite.collide_rect(self, self.collider):
+                self.collisions.append(sprite)
 
 
     def getHit(self, damage):
