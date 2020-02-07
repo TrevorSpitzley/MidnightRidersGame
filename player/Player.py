@@ -102,7 +102,6 @@ class Player(Character):
         except:
             pass
 
-
     def update(self, time):
         self.rect.x = self.x
         self.rect.y = self.y

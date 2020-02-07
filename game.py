@@ -11,7 +11,6 @@ from player.Player import Player
 # This is the event counter for our manually created events, call with evCnt()
 evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
-
 def main():
 
 
