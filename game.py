@@ -47,7 +47,13 @@ def main():
     engine.drawables.add(player)
     # Key event functions
     engine.key_events[pygame.K_a] = player.moveLeft
-    engine.events[pygame.USEREVENT + 1] = player.moveLeft
+    engine.events[pygame.USEREVENT + evCnt()] = player.moveLeft
+    engine.key_events[pygame.K_d] = player.moveRight
+    engine.events[pygame.USEREVENT + evCnt()] = player.moveRight
+    engine.key_events[pygame.K_w] = player.moveUp
+    engine.events[pygame.USEREVENT + evCnt()] = player.moveUp
+    engine.key_events[pygame.K_s] = player.moveDown
+    engine.events[pygame.USEREVENT + evCnt()] = player.moveDown
     # Quit function
     engine.events[pygame.QUIT] = quit
     # Run the engine
