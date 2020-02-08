@@ -2,6 +2,7 @@ import pygame
 import sys
 sys.path.append('..')
 from engine.league.league import *
+#from overlay import  Overlay
 
 
 class Player(Character):
@@ -11,9 +12,11 @@ class Player(Character):
         super().__init__(z, x, y)
         self.health = 100 #My Health
         self.lastHit = pygame.time.get_ticks() #Last booboo
-        self.delta = 512 #BIGGER = FASTER
+        self.delta = 128 #BIGGER = FASTER
         self.x = x
         self.y = y
+        #self.rect.x = x
+        #self.rect.y = y
 
         #Image!!!
         self.image = pygame.image.load('./sprites/Player_sprites/IdleFront.png').convert_alpha()
@@ -52,15 +55,52 @@ class Player(Character):
             pass
 
     def moveRight(self, time):
-        return 0
+        self.collisions = []
+        amount = self.delta * time
+        try:
+            if self.x + amount > self.worldSize[0] - Settings.tile_size:
+                raise OffScreenRightException
+            else:
+                self.x = self.x + amount
+                self.update(0)
+                while (len(self.collisions) != 0):
+                    self.x = self.x - amount
+                    self.update(0)
+        except:
+            pass
 
 
     def moveUp(self, time):
-        return 0
+        self.collisions = []
+        amount = self.delta * time
+        try:
+            if self.y - amount < 0:
+                raise OffScreenTopException
+            else:
+                self.y = self.y - amount
+                self.update(0)
+                if len(self.collisions) != 0:
+                    self.y = self.y + amount
+                    self.update(0)
+                    self.collisions = []
+        except:
+            pass
 
 
     def moveDown(self, time):
-        return 0
+        amount = self.delta * time
+        try:
+            if self.y + amount > self.worldSize[1] - Settings.tile_size:
+                raise OffScreenBottomException
+            else:
+                self.y = self.y + amount
+                self.update(0)
+                if len(self.collisions) != 0:
+                    self.y = self.y - amount
+                    self.update(0)
+                    self.collisions = []
+        except:
+            pass
 
     def update(self, time):
         self.rect.x = self.x
