@@ -58,5 +58,5 @@ class Enemy(Character):
             self.lastHit = self.health - damage
             self.lastHit = now
 
-                                                                                                     75,0-1        Bot
+                                                                                                     #75,0-1        Bot
 

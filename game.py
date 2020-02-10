@@ -4,6 +4,7 @@
 import pygame
 import sys
 import helperFuncs
+import projectile
 sys.path.append('.')
 from engine.league import league
 from player.Player import Player
@@ -11,10 +12,10 @@ from player.Player import Player
 # This is the event counter for our manually created events, call with evCnt()
 evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
+
 def main():
 
-
-    def quit(self):
+    def quit():
         engine.running = False
 
     engine = league.Engine("Midnight Riders")
@@ -34,18 +35,32 @@ def main():
     engine.drawables.add(scene.passable.sprites())
     engine.drawables.add(scene.impassable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
+
     # Create player
     player = Player(2, 350, 350)
+    # Create projectile
+    fire_ball = projectile
+
     # Set scene size for boundaries
     player.worldSize = scene_size
+    # Set world size for fireball
+    fire_ball.worldSize = scene_size
+
     # Get rekt, set location
     player.rect = player.image.get_rect()
     player.rect.x = 350
     player.rect.y = 350
+    # Fireball get rekt
+    # fire_ball.rect = fire_ball.image.get_rect()
+
     # Add to objects and drawables
     engine.objects.append(player)
     engine.drawables.add(player)
-    # Key event functions
+    # Add fireball to objects and drawables
+    # engine.objects.append(fire_ball)
+    # engine.drawables.add(fire_ball)
+
+    # Key event functions for player
     engine.key_events[pygame.K_a] = player.moveLeft
     engine.events[pygame.USEREVENT + evCnt()] = player.moveLeft
     engine.key_events[pygame.K_d] = player.moveRight
@@ -54,6 +69,17 @@ def main():
     engine.events[pygame.USEREVENT + evCnt()] = player.moveUp
     engine.key_events[pygame.K_s] = player.moveDown
     engine.events[pygame.USEREVENT + evCnt()] = player.moveDown
+
+    # Key event function for projectile
+    # engine.key_events[pygame.K_j] = fire_ball.shoot_left
+    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
+    # engine.key_events[pygame.K_i] = fire_ball.shoot_up
+    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
+    # engine.key_events[pygame.K_k] = fire_ball.shoot_down
+    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
+    # engine.key_events[pygame.K_l] = fire_ball.shoot_right
+    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
+
     # Quit function
     engine.events[pygame.QUIT] = quit
     # Run the engine
