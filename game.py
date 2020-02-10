@@ -15,7 +15,7 @@ evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
 def main():
 
-    def quit():
+    def quit(self):
         engine.running = False
 
     engine = league.Engine("Midnight Riders")
