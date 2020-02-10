@@ -30,8 +30,9 @@ def main():
     scene = league.Tilemap('./finalScene.lvl', tilesheet, 16, 1)
     scene_size = (scene.wide * league.Settings.tile_size, scene.high * league.Settings.tile_size)
     backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
-    # Add to drawables
+    # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
+    engine.drawables.add(scene.impassable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
     # Create player
     player = Player(2, 350, 350)
