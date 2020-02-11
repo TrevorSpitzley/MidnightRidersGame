@@ -7,12 +7,12 @@ import pygame
 
 class Projectile:
 
-    def __init__(self, player):
+    def __init__(self, shooter):
         # Set location of projectile to that of shooter
-        self.x = player.x
-        self.y = player.y
-        self.rect.x = player.rect.x
-        self.rect.y = player.rect.y
+        self.x = shooter.x
+        self.y = shooter.y
+        # self.rect.x = shooter.rect.x
+        # self.rect.y = shooter.rect.y
         # Set delta time
         self.delta = 1024  # BIGGER = FASTER
         # Load image
@@ -40,6 +40,9 @@ class Projectile:
         return 0
 
     def shoot_down(self):
+        return 0
+
+    def update(self, time):
         return 0
 
 # def shoot_left():
