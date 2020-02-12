@@ -30,7 +30,7 @@ class Projectile(DUGameObject):
         self.collider = Drawable()
         self.collider.image = pygame.Surface((Settings.tile_size, Settings.tile_size), pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
-        self._layer = 50
+        self._layer = 51
         self.direction = direction
 
 
