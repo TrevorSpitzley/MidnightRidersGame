@@ -33,7 +33,6 @@ class Projectile(DUGameObject):
         self._layer = 50
         self.direction = direction
 
-
     def shoot_left(self, time):
         # Based on timer, move 50 pixels
         self.x = self.x - 50
