@@ -15,13 +15,14 @@ class Player(Character):
         self.delta = 128  # BIGGER = FASTER
         self.x = x
         self.y = y
+        self._layer = 51
         # self.rect.x = x
         # self.rect.y = y
 
         # Image!!!
         self.image = pygame.image.load('./sprites/Player_sprites/IdleFront.png').convert_alpha()
         # Tweaked size
-        self.image = pygame.transform.scale(self.image, (48, 48))
+        self.image = pygame.transform.scale(self.image, (36, 36))
         self.rect = self.image.get_rect()
 
         # World size, and collisions

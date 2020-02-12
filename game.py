@@ -4,7 +4,8 @@
 import pygame
 import sys
 import helperFuncs
-import projectile
+from projectile import Projectile
+
 sys.path.append('.')
 from engine.league import league
 from player.Player import Player
@@ -14,7 +15,6 @@ evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
 
 def main():
-
     def quit(self):
         engine.running = False
 
@@ -33,32 +33,25 @@ def main():
     backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
     # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
-    engine.drawables.add(scene.impassable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
 
     # Create player
     player = Player(2, 350, 350)
-    # Create projectile
-    fire_ball = projectile
+
+    # Add blocks for player
+    player.blocks.add(scene.impassable)
 
     # Set scene size for boundaries
     player.worldSize = scene_size
-    # Set world size for fireball
-    fire_ball.worldSize = scene_size
 
     # Get rekt, set location
     player.rect = player.image.get_rect()
     player.rect.x = 350
     player.rect.y = 350
-    # Fireball get rekt
-    # fire_ball.rect = fire_ball.image.get_rect()
 
     # Add to objects and drawables
     engine.objects.append(player)
     engine.drawables.add(player)
-    # Add fireball to objects and drawables
-    # engine.objects.append(fire_ball)
-    # engine.drawables.add(fire_ball)
 
     # Key event functions for player
     engine.key_events[pygame.K_a] = player.moveLeft
@@ -70,22 +63,52 @@ def main():
     engine.key_events[pygame.K_s] = player.moveDown
     engine.events[pygame.USEREVENT + evCnt()] = player.moveDown
 
-    # Key event function for projectile
-    # engine.key_events[pygame.K_j] = fire_ball.shoot_left
-    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
-    # engine.key_events[pygame.K_i] = fire_ball.shoot_up
-    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
-    # engine.key_events[pygame.K_k] = fire_ball.shoot_down
-    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
-    # engine.key_events[pygame.K_l] = fire_ball.shoot_right
-    # engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
+    def make_projectile_left(time):
+        fire_ball = Projectile(player, "left")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1000] = fire_ball.shoot_left
+
+    def make_projectile_right(time):
+        fire_ball = Projectile(player, "right")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1030] = fire_ball.shoot_right
+
+    def make_projectile_up(time):
+        fire_ball = Projectile(player, "up")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1010] = fire_ball.shoot_up
+
+    def make_projectile_down(time):
+        fire_ball = Projectile(player, "down")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1020] = fire_ball.shoot_down
+
+    # Key event function for projectile and set timer
+    engine.key_events[pygame.K_j] = make_projectile_left
+    engine.key_events[pygame.K_i] = make_projectile_up
+    engine.key_events[pygame.K_k] = make_projectile_down
+    engine.key_events[pygame.K_l] = make_projectile_right
 
     # Quit function
     engine.events[pygame.QUIT] = quit
+    engine.key_events[pygame.K_ESCAPE] = quit
     # Run the engine
     engine.run()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     main()
 
 print("THIS IS CONFIRMATION THAT I MADE IT TO THE END OF THE FILE WITHOUT GETTING HUNG UP")
