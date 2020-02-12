@@ -202,3 +202,4 @@ leauge/
 engine/
 .idea/
 engine/league
+engine/league/.gitignore
