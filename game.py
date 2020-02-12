@@ -37,33 +37,21 @@ def main():
 
     # Create player
     player = Player(2, 350, 350)
-    # Create projectile
-    fire_ball = Projectile(player)
 
-    # Add blocks for player and fire_ball
+    # Add blocks for player
     player.blocks.add(scene.impassable)
-    fire_ball.blocks.add(scene.impassable)
 
     # Set scene size for boundaries
     player.worldSize = scene_size
-    # Set world size for fireball
-    fire_ball.worldSize = scene_size
 
     # Get rekt, set location
     player.rect = player.image.get_rect()
     player.rect.x = 350
     player.rect.y = 350
-    # Fireball get rekt
-    fire_ball.rect = fire_ball.image.get_rect()
-    fire_ball.x = player.x
-    fire_ball.y = player.y
 
     # Add to objects and drawables
     engine.objects.append(player)
     engine.drawables.add(player)
-    # Add fireball to objects and drawables
-    engine.objects.append(fire_ball)
-    engine.drawables.add(fire_ball)
 
     # Key event functions for player
     engine.key_events[pygame.K_a] = player.moveLeft
@@ -75,18 +63,47 @@ def main():
     engine.key_events[pygame.K_s] = player.moveDown
     engine.events[pygame.USEREVENT + evCnt()] = player.moveDown
 
-    # Key event function for projectile
-    engine.key_events[pygame.K_j] = fire_ball.shoot_left
-    engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
-    engine.key_events[pygame.K_i] = fire_ball.shoot_up
-    engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
-    engine.key_events[pygame.K_k] = fire_ball.shoot_down
-    engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
-    engine.key_events[pygame.K_l] = fire_ball.shoot_right
-    engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
+    def make_projectile_left(time):
+        fire_ball = Projectile(player, "left")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1000] = fire_ball.shoot_left
+
+    def make_projectile_right(time):
+        fire_ball = Projectile(player, "right")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1030] = fire_ball.shoot_right
+
+    def make_projectile_up(time):
+        fire_ball = Projectile(player, "up")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1010] = fire_ball.shoot_up
+
+    def make_projectile_down(time):
+        fire_ball = Projectile(player, "down")
+        fire_ball.shoot_left(pygame.time.get_ticks())
+        fire_ball.blocks.add(scene.impassable)
+        engine.objects.append(fire_ball)
+        engine.drawables.add(fire_ball)
+        engine.events[pygame.USEREVENT + 1020] = fire_ball.shoot_down
+
+    # Key event function for projectile and set timer
+    engine.key_events[pygame.K_j] = make_projectile_left
+    engine.key_events[pygame.K_i] = make_projectile_up
+    engine.key_events[pygame.K_k] = make_projectile_down
+    engine.key_events[pygame.K_l] = make_projectile_right
 
     # Quit function
     engine.events[pygame.QUIT] = quit
+    engine.key_events[pygame.K_ESCAPE] = quit
     # Run the engine
     engine.run()
 

@@ -5,16 +5,17 @@ from engine.league.league import *
 import pygame
 
 
-class Projectile:
+class Projectile(DUGameObject):
 
-    def __init__(self, shooter):
+    def __init__(self, shooter, direction):
+        super().__init__()
         # Set location of projectile to that of shooter
-        self.x = shooter.x
-        self.y = shooter.y
-        # self.rect.x = shooter.rect.x
-        # self.rect.y = shooter.rect.y
+        self.x = shooter.x + 60
+        self.y = shooter.y + 12
+        self.rect.x = shooter.rect.x
+        self.rect.y = shooter.rect.y
         # Set delta time
-        self.delta = 1024  # BIGGER = FASTER
+        self.delta = 1  # BIGGER = FASTER
         # Load image
         self.image = pygame.image.load('./sprites/effects/fire_ball.png').convert_alpha()
         # Set image
@@ -29,33 +30,48 @@ class Projectile:
         self.collider = Drawable()
         self.collider.image = pygame.Surface((Settings.tile_size, Settings.tile_size), pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
+        self._layer = 50
+        self.direction = direction
 
-    def shoot_left(self):
-        return 0
 
-    def shoot_right(self):
-        return 0
+    def shoot_left(self, time):
+        # Based on timer, move 50 pixels
+        self.x = self.x - 50
+        self.rect.x = self.rect.x - 50
 
-    def shoot_up(self):
-        return 0
+    def shoot_right(self, time):
+        # Based on time, move 50 pixels
+        self.x = self.x + 50
+        self.rect.x = self.rect.x - 50
 
-    def shoot_down(self):
-        return 0
+    def shoot_up(self, time):
+        # Based on time, move 50 pixels
+        self.y = self.y - 50
+        self.rect.y = self.rect.y - 50
+
+    def shoot_down(self, time):
+        # Based on time, move 50 pixels
+        self.y = self.y + 50
+        self.y = self.rect.y - 50
 
     def update(self, time):
-        return 0
-
-# def shoot_left():
-#     return None
-#
-#
-# def shoot_up():
-#     return None
-#
-#
-# def shoot_down():
-#     return None
-#
-#
-# def shoot_right():
-#     return None
+        if self.direction == "left":
+            self.x = self.x - time * 100
+            self.y = self.y + time * 0
+        if self.direction == "right":
+            self.x = self.x + time * 100
+            self.y = self.y + time * 0
+        if self.direction == "down":
+            self.x = self.x + time * 0
+            self.y = self.y + time * 100
+        if self.direction == "up":
+            self.x = self.x + time * 0
+            self.y = self.y - time * 100
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.collisions = []
+        for sprite in self.blocks:
+            self.collider.rect.x = sprite.x
+            self.collider.rect.y = sprite.y
+            if pygame.sprite.collide_rect(self, self.collider):
+                self.collisions.append(sprite)
