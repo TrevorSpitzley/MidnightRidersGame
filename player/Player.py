@@ -49,28 +49,28 @@ class Player(Character):
         self.left_counter = 0
 
         self.up_array = [
-            './sprites/Player_sprites/player_sprites_frames/back_idle_frames/frame_0_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/back_idle_frames/frame_0_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/back_idle_frames/frame_1_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/back_idle_frames/frame_1_delay-0.5s.png']
+            './sprites/Player_sprites/player_sprite_frames/back_idle_frames/frame_0_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/back_idle_frames/frame_0_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/back_idle_frames/frame_1_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/back_idle_frames/frame_1_delay-0.5s.png']
         self.down_array = [
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_0_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_1_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_2_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_3_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_4_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_5_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_6_delay-0.5s.png',
-            './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_7_delay-0.5s.png']
-        # self.right_array = [
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_0.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_1.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_2.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_3.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_4.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_5.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_6.png',
-        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_7.png']
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_0_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_1_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_2_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_3_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_4_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_5_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_6_delay-0.5s.png',
+            './sprites/Player_sprites/player_sprite_frames/front_idle_frames/frame_7_delay-0.5s.png']
+        self.right_array = [
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_0.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_1.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_2.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_3.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_4.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_5.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_6.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_7.png']
         self.left_array = [
             './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_1.png',
             './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_2.png',
@@ -83,9 +83,9 @@ class Player(Character):
 
     def moveLeft(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        self.up_counter = 0
-        self.down_counter = 0
-        self.right_counter = 0
+        # self.up_counter = 0
+        # self.down_counter = 0
+        # self.right_counter = 0
         amount = self.delta * time
         try:
             if self.x - amount < 0:
@@ -108,9 +108,9 @@ class Player(Character):
 
     def moveRight(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        self.up_counter = 0
-        self.down_counter = 0
-        self.left_counter = 0
+        # self.up_counter = 0
+        # self.down_counter = 0
+        # self.left_counter = 0
         self.collisions = []
         amount = self.delta * time
         try:
@@ -134,9 +134,9 @@ class Player(Character):
 
     def moveUp(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        self.down_counter = 0
-        self.right_counter = 0
-        self.left_counter = 0
+        # self.down_counter = 0
+        # self.right_counter = 0
+        # self.left_counter = 0
         self.collisions = []
         amount = self.delta * time
         try:
@@ -146,7 +146,7 @@ class Player(Character):
                 self.image = pygame.image.load(self.up_array[self.up_counter]).convert_alpha()
                 self.image = pygame.transform.scale(self.image, (36, 36))
                 self.rect = self.image.get_rect()
-                if self.up_counter < 4:
+                if self.up_counter < 3:
                     self.up_counter += 1
                 else:
                     self.up_counter = 0
@@ -161,9 +161,9 @@ class Player(Character):
 
     def moveDown(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        self.up_counter = 0
-        self.right_counter = 0
-        self.left_counter = 0
+        # self.up_counter = 0
+        # self.right_counter = 0
+        # self.left_counter = 0
         amount = self.delta * time
         try:
             if self.y + amount > self.worldSize[1] - Settings.tile_size:
