@@ -62,15 +62,15 @@ class Player(Character):
             './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_5_delay-0.5s.png',
             './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_6_delay-0.5s.png',
             './sprites/Player_sprites/player_sprites_frames/front_idle_frames/frame_7_delay-0.5s.png']
-        self.right_array = [
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_0.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_1.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_2.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_3.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_4.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_5.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_6.png',
-            './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_7.png']
+        # self.right_array = [
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_0.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_1.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_2.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_3.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_4.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_5.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_6.png',
+        #     './sprites/Player_sprites/player_sprites_frames/moving_right_frames/frame_7.png']
         self.left_array = [
             './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_1.png',
             './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_2.png',
