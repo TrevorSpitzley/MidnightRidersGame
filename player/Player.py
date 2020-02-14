@@ -83,9 +83,9 @@ class Player(Character):
 
     def moveLeft(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        # self.up_counter = 0
-        # self.down_counter = 0
-        # self.right_counter = 0
+        self.up_counter = 0
+        self.down_counter = 0
+        self.right_counter = 0
         amount = self.delta * time
         try:
             if self.x - amount < 0:
@@ -108,9 +108,9 @@ class Player(Character):
 
     def moveRight(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        # self.up_counter = 0
-        # self.down_counter = 0
-        # self.left_counter = 0
+        self.up_counter = 0
+        self.down_counter = 0
+        self.left_counter = 0
         self.collisions = []
         amount = self.delta * time
         try:
@@ -134,9 +134,9 @@ class Player(Character):
 
     def moveUp(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        # self.down_counter = 0
-        # self.right_counter = 0
-        # self.left_counter = 0
+        self.down_counter = 0
+        self.right_counter = 0
+        self.left_counter = 0
         self.collisions = []
         amount = self.delta * time
         try:
@@ -161,9 +161,9 @@ class Player(Character):
 
     def moveDown(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
-        # self.up_counter = 0
-        # self.right_counter = 0
-        # self.left_counter = 0
+        self.up_counter = 0
+        self.right_counter = 0
+        self.left_counter = 0
         amount = self.delta * time
         try:
             if self.y + amount > self.worldSize[1] - Settings.tile_size:

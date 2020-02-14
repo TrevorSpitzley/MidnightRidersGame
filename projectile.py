@@ -3,6 +3,7 @@ import sys
 sys.path.append('..')
 from engine.league.league import *
 import pygame
+from pygame import mixer
 
 
 class Projectile(DUGameObject):
@@ -32,6 +33,10 @@ class Projectile(DUGameObject):
         self.collider.rect = self.collider.image.get_rect()
         self._layer = 50
         self.direction = direction
+        self.fire_ball_sound = mixer.Sound()
+
+    def play_sound(self):
+        self.fire_ball_sound.play()
 
     def shoot_left(self, time):
         # Based on timer, move 50 pixels
@@ -55,7 +60,7 @@ class Projectile(DUGameObject):
 
     def update(self, time):
         if self.direction == "left":
-            self.x = self.x - time * 100
+            self.x = self.x - time * 150
             self.y = self.y + time * 0
         if self.direction == "right":
             self.x = self.x + time * 100
