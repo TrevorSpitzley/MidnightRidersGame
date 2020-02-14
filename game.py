@@ -9,6 +9,7 @@ from projectile import Projectile
 sys.path.append('.')
 from engine.league import league
 from player.Player import Player
+from pygame import mixer
 
 # This is the event counter for our manually created events, call with evCnt()
 evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
@@ -22,6 +23,8 @@ def main():
     league.Settings.height = 768
     league.Settings.width = 768
     engine.init_pygame()
+    mixer.music.load('./ogg_files/boss.ogg')
+    mixer.music.play(-1)
 
     # Our tilesheet is 16x16 pixels
     league.Settings.tile_size = 16

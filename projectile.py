@@ -33,28 +33,32 @@ class Projectile(DUGameObject):
         self.collider.rect = self.collider.image.get_rect()
         self._layer = 50
         self.direction = direction
-        self.fire_ball_sound = mixer.Sound()
+        self.fire_ball_sound = mixer.Sound('./wav_files/Explosion13.wav')
 
     def play_sound(self):
         self.fire_ball_sound.play()
 
     def shoot_left(self, time):
         # Based on timer, move 50 pixels
+        self.play_sound()
         self.x = self.x - 50
         self.rect.x = self.rect.x - 50
 
     def shoot_right(self, time):
         # Based on time, move 50 pixels
+        self.play_sound()
         self.x = self.x + 50
         self.rect.x = self.rect.x - 50
 
     def shoot_up(self, time):
         # Based on time, move 50 pixels
+        self.play_sound()
         self.y = self.y - 50
         self.rect.y = self.rect.y - 50
 
     def shoot_down(self, time):
         # Based on time, move 50 pixels
+        self.play_sound()
         self.y = self.y + 50
         self.y = self.rect.y - 50
 
