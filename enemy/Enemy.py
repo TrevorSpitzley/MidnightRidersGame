@@ -36,28 +36,35 @@ class Enemy(Character):
         self.collider.image = pygame.Surface((Settings.tile_size, Settings.tile_size), pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
 
+        # Death animation setup
+        self.death = 0
+        self.death_mode = []
+
     def move(self, time):
         amount = self.delta * time
-        if self.move_count == 3:
-            # move up
-            self.y = self.y - amount
-            self.move_count = 0
+        if self.health == 0:
             return
+        else:
+            if self.move_count == 3:
+                # move up
+                self.y = self.y - amount
+                self.move_count = 0
+                return
 
-        if self.move_count == 2:
-            # move left
-            self.x = self.x - amount
-            self.move_count += 1
+            if self.move_count == 2:
+                # move left
+                self.x = self.x - amount
+                self.move_count += 1
 
-        if self.move_count == 1:
-            # move down
-            self.y = self.y + amount
-            self.move_count += 1
+            if self.move_count == 1:
+                # move down
+                self.y = self.y + amount
+                self.move_count += 1
 
-        if self.move_count == 0:
-            # move right
-            self.x = self.x + amount
-            self.move_count += 1
+            if self.move_count == 0:
+                # move right
+                self.x = self.x + amount
+                self.move_count += 1
 
     # def moveLeft(self, time):
     #     amount = self.delta * time
@@ -90,7 +97,5 @@ class Enemy(Character):
             self.lastHit = now
             if self.health == 0:
                 self.kill()
-                self.image = pygame.image.load('./sprites/EnemySprite/zombie.png').convert_alpha()
-                self.image = pygame.transform.scale(self.image, (24, 36))
-                self.rect = self.image.get_rect()
+
 

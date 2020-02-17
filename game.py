@@ -32,9 +32,9 @@ def main():
     # Assign tilesheet
     tilesheet = league.Spritesheet('./TilesetGraveyard_16.png', league.Settings.tile_size, 12)
     # Set tilemaps for blank background and main scene
-    scene = league.Tilemap('./finalScene.lvl', tilesheet, 16, 1)
+    scene = league.Tilemap('./finalScene.lvl', tilesheet, 16, 2)
     scene_size = (scene.wide * league.Settings.tile_size, scene.high * league.Settings.tile_size)
-    backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
+    backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 1)
     # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
