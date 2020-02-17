@@ -1,5 +1,5 @@
-import pygame
 import sys
+import random as rnd
 sys.path.append('..')
 from engine.league.league import *
 
@@ -13,7 +13,7 @@ class Enemy(Character):
         self.health = 100
         self.lastHit = pygame.time.get_ticks()
         # BIGGER = FASTER
-        self.delta = (128 * 3)
+        self.delta = (128 * 4)
         self.x = x
         self.y = y
         self.move_count = 0
@@ -28,7 +28,7 @@ class Enemy(Character):
         # World size, and collisions
         self.worldSize = (Settings.width, Settings.height)
         self.blocks = pygame.sprite.Group()
-        self.collideFunction = pygame.sprite.collide_circle # can use other shapes
+        self.collide_function = pygame.sprite.collide_circle # can use other shapes
         self.collisions = []
 
         # collision sprite
@@ -36,35 +36,76 @@ class Enemy(Character):
         self.collider.image = pygame.Surface((Settings.tile_size, Settings.tile_size), pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
 
-        # Death animation setup
+        # Death animation and counter
         self.death = 0
-        self.death_mode = []
+        self.death_mode = ['./sprites/EnemySprite/enemy_death_frames/frame0.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame1.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame2.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame3.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame4.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame5.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame6.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame7.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame8.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame9.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame10.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame11.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame12.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame13.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame14.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame15.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame16.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame17.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame18.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame19.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame20.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame21.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame22.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame23.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame24.png']
 
     def move(self, time):
         amount = self.delta * time
-        if self.health == 0:
-            return
-        else:
-            if self.move_count == 3:
+        if self.move_count == 6 or self.move_count == 7:
+            if self.move_count == 7:
                 # move up
                 self.y = self.y - amount
                 self.move_count = 0
                 return
-
-            if self.move_count == 2:
-                # move left
-                self.x = self.x - amount
+            else:
+                self.y = self.y - amount
                 self.move_count += 1
 
-            if self.move_count == 1:
-                # move down
-                self.y = self.y + amount
-                self.move_count += 1
+        if self.move_count == 4 or self.move_count == 5:
+            # move left
+            self.x = self.x - amount
+            self.move_count += 1
 
-            if self.move_count == 0:
-                # move right
-                self.x = self.x + amount
-                self.move_count += 1
+        if self.move_count == 2 or self.move_count == 3:
+            # move down
+            self.y = self.y + amount
+            self.move_count += 1
+
+        if self.move_count == 0 or self.move_count == 1:
+            # move right
+            self.x = self.x + amount
+            self.move_count += 1
+
+    def move_random(self, time):
+        amount = self.delta * time
+        move_count = rnd.randint(0, 3)
+        if move_count == 3:
+            # move up
+            self.y = self.y - amount
+        if move_count == 2:
+            # move left
+            self.x = self.x - amount
+        if move_count == 1:
+            # move down
+            self.y = self.y + amount
+        if move_count == 0:
+            # move right
+            self.x = self.x + amount
 
     # def moveLeft(self, time):
     #     amount = self.delta * time
@@ -92,10 +133,18 @@ class Enemy(Character):
 
     def getHit(self):
         now = pygame.time.get_ticks()
-        if now - self.lastHit > 1000:
-            self.lastHit = self.health - 10
-            self.lastHit = now
+        if self.death > 24:
+            return
+        else:
             if self.health == 0:
                 self.kill()
-
-
+                if self.death < 24:
+                    self.image = pygame.image.load(self.death_mode[self.death]).convert_alpha()
+                    self.image = pygame.transform.scale(self.image, (24, 36))
+                    self.rect = self.image.get_rect()
+                    self.death += 1
+            else:
+                if now - self.lastHit > 1000:
+                    self.lastHit = self.health - 10
+                    self.lastHit = now
+                    print("I've been hit!")
