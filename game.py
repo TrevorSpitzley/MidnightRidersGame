@@ -42,6 +42,7 @@ def main():
     # Create player & enemy
     player = Player(2, 350, 350)
     enemy1 = Enemy(2, 200, 200)
+    fire_ball = Projectile
 
     # Add blocks for player
     player.blocks.add(scene.impassable)
@@ -119,6 +120,9 @@ def main():
     move_enemy = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy, 750)
     engine.events[move_enemy] = enemy1.move
+
+    # Collision detection for enemy
+    engine.collisions[enemy1] = (fire_ball, enemy1.getHit())
 
     # Quit function
     engine.events[pygame.QUIT] = quit
