@@ -41,16 +41,23 @@ def main():
 
     # Create player & enemy
     player = Player(2, 350, 350)
-    enemy1 = Enemy(2, 200, 200)
-    fire_ball = Projectile
+    enemy1 = Enemy(2, 80, 170)
+    enemy2 = Enemy(2, 650, 200)
+    enemy3 = Enemy(2, 55, 550)
+    # enemy4 = Enemy(2,)
+    fire_ball1 = Projectile
 
     # Add blocks for player
     player.blocks.add(scene.impassable)
     enemy1.blocks.add(scene.impassable)
+    enemy2.blocks.add(scene.impassable)
+    enemy3.blocks.add(scene.impassable)
 
     # Set scene size for boundaries
     player.worldSize = scene_size
     enemy1.worldSize = scene_size
+    enemy2.worldSize = scene_size
+    enemy3.worldSize = scene_size
 
     # Get rekt, set location
     player.rect = player.image.get_rect()
@@ -61,12 +68,26 @@ def main():
     enemy1.rect.x = 200
     enemy1.rect.y = 200
 
+    enemy2.rect = enemy2.image.get_rect()
+    enemy2.rect.x = 650
+    enemy2.rect.y = 200
+
+    enemy3.rect = enemy3.image.get_rect()
+    enemy3.rect.x = 55
+    enemy3.rect.y = 550
+
     # Add to objects and drawables
     engine.objects.append(player)
     engine.drawables.add(player)
 
     engine.objects.append(enemy1)
     engine.drawables.add(enemy1)
+
+    engine.objects.append(enemy2)
+    engine.drawables.add(enemy2)
+
+    engine.objects.append(enemy3)
+    engine.drawables.add(enemy3)
 
     # Key event functions for player
     engine.key_events[pygame.K_a] = player.moveLeft
@@ -98,6 +119,7 @@ def main():
         fire_ball = Projectile(player, "up")
         fire_ball.blocks.add(scene.impassable)
         fire_ball.shoot_left(pygame.time.get_ticks())
+        # engine.collisions[enemy1] = (fire_ball, enemy1.getHit())
         engine.objects.append(fire_ball)
         engine.drawables.add(fire_ball)
         engine.events[pygame.USEREVENT + 1010] = fire_ball.shoot_up
@@ -117,12 +139,19 @@ def main():
     engine.key_events[pygame.K_l] = make_projectile_right
 
     # Auto movement for enemy1
-    move_enemy = pygame.USEREVENT + evCnt()
-    pygame.time.set_timer(move_enemy, 750)
-    engine.events[move_enemy] = enemy1.move
+    move_enemy1 = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_enemy1, 500)
+    engine.events[move_enemy1] = enemy1.move
 
-    # Collision detection for enemy
-    engine.collisions[enemy1] = (fire_ball, enemy1.getHit())
+    move_enemy2 = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_enemy2, 500)
+    engine.events[move_enemy2] = enemy2.move
+
+    move_enemy3 = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_enemy3, 500)
+    engine.events[move_enemy3] = enemy3.move
+
+
 
     # Quit function
     engine.events[pygame.QUIT] = quit
