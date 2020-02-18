@@ -10,10 +10,10 @@ class Enemy(Character):
         # Put z first to mimic his character.py and game_objects.py class
         super().__init__(z, x, y)
         # My Health
-        self.health = 100
+        self.health = 10
         self.lastHit = pygame.time.get_ticks()
         # BIGGER = FASTER
-        self.delta = (128 * 4)
+        self.delta = (128 * 3)
         self.x = x
         self.y = y
         self.move_count = 0
@@ -28,7 +28,7 @@ class Enemy(Character):
         # World size, and collisions
         self.worldSize = (Settings.width, Settings.height)
         self.blocks = pygame.sprite.Group()
-        self.collide_function = pygame.sprite.collide_circle # can use other shapes
+        self.collide_function = pygame.sprite.collide_rect # can use other shapes
         self.collisions = []
 
         # collision sprite
@@ -132,19 +132,19 @@ class Enemy(Character):
                 self.collisions.append(sprite)
 
     def getHit(self):
+        self.collisions =[]
         now = pygame.time.get_ticks()
         if self.death > 24:
             return
         else:
             if self.health == 0:
-                self.kill()
                 if self.death < 24:
                     self.image = pygame.image.load(self.death_mode[self.death]).convert_alpha()
                     self.image = pygame.transform.scale(self.image, (24, 36))
                     self.rect = self.image.get_rect()
                     self.death += 1
             else:
-                if now - self.lastHit > 1000:
+                if now - self.lastHit > 300:
                     self.lastHit = self.health - 10
                     self.lastHit = now
                     print("I've been hit!")

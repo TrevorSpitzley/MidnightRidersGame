@@ -34,6 +34,7 @@ def main():
     # Set tilemaps for blank background and main scene
     scene = league.Tilemap('./finalScene.lvl', tilesheet, 16, 1)
     scene_size = (scene.wide * league.Settings.tile_size, scene.high * league.Settings.tile_size)
+    z_scene_size = ((scene.wide * league.Settings.tile_size) - 32, (scene.high * league.Settings.tile_size) - 32)
     backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
     # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
@@ -55,9 +56,9 @@ def main():
 
     # Set scene size for boundaries
     player.worldSize = scene_size
-    enemy1.worldSize = scene_size
-    enemy2.worldSize = scene_size
-    enemy3.worldSize = scene_size
+    enemy1.worldSize = z_scene_size
+    enemy2.worldSize = z_scene_size
+    enemy3.worldSize = z_scene_size
 
     # Get rekt, set location
     player.rect = player.image.get_rect()
@@ -119,7 +120,7 @@ def main():
         fire_ball = Projectile(player, "up")
         fire_ball.blocks.add(scene.impassable)
         fire_ball.shoot_left(pygame.time.get_ticks())
-        # engine.collisions[enemy1] = (fire_ball, enemy1.getHit())
+        engine.collisions[enemy1] = (fire_ball, enemy1.getHit)
         engine.objects.append(fire_ball)
         engine.drawables.add(fire_ball)
         engine.events[pygame.USEREVENT + 1010] = fire_ball.shoot_up
@@ -141,17 +142,18 @@ def main():
     # Auto movement for enemy1
     move_enemy1 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy1, 500)
-    engine.events[move_enemy1] = enemy1.move
+    # engine.events[move_enemy1] = enemy1.move
+    engine.events[move_enemy1] = enemy1.move_random
 
     move_enemy2 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy2, 500)
-    engine.events[move_enemy2] = enemy2.move
+    # engine.events[move_enemy2] = enemy2.move
+    engine.events[move_enemy2] = enemy2.move_random
 
     move_enemy3 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy3, 500)
-    engine.events[move_enemy3] = enemy3.move
-
-
+    # engine.events[move_enemy3] = enemy3.move
+    engine.events[move_enemy3] = enemy3.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit
