@@ -2,6 +2,7 @@ import sys
 import random as rnd
 sys.path.append('..')
 from engine.league.league import *
+from engine.league.league.settings import Settings
 
 
 class Enemy(Character):
@@ -18,6 +19,8 @@ class Enemy(Character):
         self.y = y
         self.move_count = 0
         self._layer = 50
+
+        Settings.key_repeat = 1
 
         # Image
         self.image = pygame.image.load('./sprites/EnemySprite/zombie.png').convert_alpha()

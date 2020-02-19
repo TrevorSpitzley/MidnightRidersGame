@@ -37,6 +37,7 @@ def main():
     backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 0)
     # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
+    engine.drawables.add(scene.impassable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
 
     # Create player & enemy
@@ -52,6 +53,7 @@ def main():
         for obj in characters:
             # Add impassable blocks
             obj.blocks.add(scene.impassable)
+            obj.blocks.add(scene.impassable.sprites())
             # Set scene size and boundaries
             obj.worldSize = scene_size
             # Load image
