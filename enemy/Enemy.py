@@ -10,7 +10,7 @@ class Enemy(Character):
         # Put z first to mimic his character.py and game_objects.py class
         super().__init__(z, x, y)
         # My Health
-        self.health = 100
+        self.health = 10
         self.lastHit = pygame.time.get_ticks()
         # BIGGER = FASTER
         self.delta = (128 * 3)
@@ -104,18 +104,19 @@ class Enemy(Character):
     def move_random(self, time):
         amount = self.delta * time
         move_count = rnd.randint(0, 3)
-        if move_count == 3:
-            # move up
-            self.y = self.y - amount
-        if move_count == 2:
-            # move left
-            self.x = self.x - amount
-        if move_count == 1:
-            # move down
-            self.y = self.y + amount
-        if move_count == 0:
-            # move right
-            self.x = self.x + amount
+        if self.health != 0:
+            if move_count == 3:
+                # move up
+                self.y = self.y - amount
+            if move_count == 2:
+                # move left
+                self.x = self.x - amount
+            if move_count == 1:
+                # move down
+                self.y = self.y + amount
+            if move_count == 0:
+                # move right
+                self.x = self.x + amount
 
     def update(self, time):
         self.rect.x = self.x
@@ -131,6 +132,8 @@ class Enemy(Character):
         self.collisions = []
         now = pygame.time.get_ticks()
         if now - self.lastHit > 300 and self.health > 0:
-            self.lastHit = self.health - 10
+            self.health = self.health - 10
             self.lastHit = now
-            print("I've been hit!")
+            # print("Health is" + str(self.health))
+        if self.health <= 0:
+            self.death_change(1)
