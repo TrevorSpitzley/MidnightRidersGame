@@ -142,18 +142,18 @@ def main():
     # Auto movement for enemy1
     move_enemy1 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy1, 500)
-    # engine.events[move_enemy1] = enemy1.move
-    engine.events[move_enemy1] = enemy1.move_random
+    engine.events[move_enemy1] = enemy1.move
+    # engine.events[move_enemy1] = enemy1.move_random
 
     move_enemy2 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy2, 500)
-    # engine.events[move_enemy2] = enemy2.move
-    engine.events[move_enemy2] = enemy2.move_random
+    engine.events[move_enemy2] = enemy2.move
+    # engine.events[move_enemy2] = enemy2.move_random
 
     move_enemy3 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy3, 500)
-    # engine.events[move_enemy3] = enemy3.move
-    engine.events[move_enemy3] = enemy3.move_random
+    engine.events[move_enemy3] = enemy3.move
+    # engine.events[move_enemy3] = enemy3.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit
