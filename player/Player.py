@@ -72,14 +72,14 @@ class Player(Character):
             './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_6.png',
             './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_7.png']
         self.left_array = [
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_1.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_2.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_3.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_4.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_5.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_6.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_7.png',
-            './sprites/Player_sprites/player_sprite_frames/moving_right_frames/frame_8.png']
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_1.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_2.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_3.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_4.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_5.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_6.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_7.png',
+            './sprites/Player_sprites/player_sprite_frames/moving_left_frames/frame_8.png']
 
     def moveLeft(self, time):
         # Reset other counters on first move to ensure the animation starts on image[0]
