@@ -46,8 +46,9 @@ def main():
     enemy2 = Enemy(2, 650, 200)
     enemy3 = Enemy(2, 55, 550)
     enemy4 = Enemy(2, 450, 650)
-    enemy_list = [enemy1, enemy2, enemy3, enemy4]
-    character_list = [enemy1, enemy2, enemy3, enemy4, player]
+    enemy5 = Enemy(2, 375, 125)
+    enemy_list = [enemy1, enemy2, enemy3, enemy4, enemy5]
+    character_list = [enemy1, enemy2, enemy3, enemy4, enemy5, player]
 
     def engine_add(characters):
         for obj in characters:
@@ -134,22 +135,27 @@ def main():
     move_enemy1 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy1, 500)
     # engine.events[move_enemy1] = enemy1.move
-    # engine.events[move_enemy1] = enemy1.move_random
+    engine.events[move_enemy1] = enemy1.move_random
 
     move_enemy2 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy2, 500)
     # engine.events[move_enemy2] = enemy2.move
-    # engine.events[move_enemy2] = enemy2.move_random
+    engine.events[move_enemy2] = enemy2.move_random
 
     move_enemy3 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy3, 500)
     # engine.events[move_enemy3] = enemy3.move
-    # engine.events[move_enemy3] = enemy3.move_random
+    engine.events[move_enemy3] = enemy3.move_random
 
     move_enemy4 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy4, 500)
     # engine.events[move_enemy4] = enemy4.move
-    # engine.events[move_enemy4] = enemy4.move_random
+    engine.events[move_enemy4] = enemy4.move_random
+
+    move_enemy5 = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_enemy5, 500)
+    # engine.events[move_enemy5] = enemy5.move
+    engine.events[move_enemy5] = enemy5.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit
