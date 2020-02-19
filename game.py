@@ -37,6 +37,7 @@ def main():
     backdrop = league.Tilemap('./ourBackground.lvl', tilesheet, 16, 1)
     # Add to drawables that are passable and impassable
     engine.drawables.add(scene.passable.sprites())
+    engine.drawables.add(scene.impassable.sprites())
     engine.drawables.add(backdrop.passable.sprites())
 
     # Create player & enemy
@@ -44,50 +45,40 @@ def main():
     enemy1 = Enemy(2, 80, 170)
     enemy2 = Enemy(2, 650, 200)
     enemy3 = Enemy(2, 55, 550)
-    # enemy4 = Enemy(2,)
-    fire_ball1 = Projectile
+    enemy4 = Enemy(2, 450, 650)
+    enemy_list = [enemy1, enemy2, enemy3, enemy4]
+    character_list = [enemy1, enemy2, enemy3, enemy4, player]
 
-    # Add blocks for player
-    player.blocks.add(scene.impassable)
-    enemy1.blocks.add(scene.impassable)
-    enemy2.blocks.add(scene.impassable)
-    enemy3.blocks.add(scene.impassable)
+    def engine_add(characters):
+        for obj in characters:
+            # Add impassable blocks
+            obj.blocks.add(scene.impassable)
+            obj.blocks.add(scene.impassable.sprites())
+            # Set scene size and boundaries
+            obj.worldSize = scene_size
+            # Load image
+            obj.rect = obj.image.get_rect()
+            # Add to drawable and updateable lists
+            engine.objects.append(obj)
+            engine.drawables.add(obj)
 
-    # Set scene size for boundaries
-    player.worldSize = scene_size
-    enemy1.worldSize = scene_size
-    enemy2.worldSize = scene_size
-    enemy3.worldSize = scene_size
+    engine_add(character_list)
 
-    # Get rekt, set location
-    player.rect = player.image.get_rect()
+    # Set locations of characters
     player.rect.x = 350
     player.rect.y = 350
 
-    enemy1.rect = enemy1.image.get_rect()
     enemy1.rect.x = 200
     enemy1.rect.y = 200
 
-    enemy2.rect = enemy2.image.get_rect()
     enemy2.rect.x = 650
     enemy2.rect.y = 200
 
-    enemy3.rect = enemy3.image.get_rect()
     enemy3.rect.x = 55
     enemy3.rect.y = 550
 
-    # Add to objects and drawables
-    engine.objects.append(player)
-    engine.drawables.add(player)
-
-    engine.objects.append(enemy1)
-    engine.drawables.add(enemy1)
-
-    engine.objects.append(enemy2)
-    engine.drawables.add(enemy2)
-
-    engine.objects.append(enemy3)
-    engine.drawables.add(enemy3)
+    enemy4.rect.x = 450
+    enemy4.rect.y = 650
 
     # Key event functions for player
     engine.key_events[pygame.K_a] = player.moveLeft
@@ -99,38 +90,39 @@ def main():
     engine.key_events[pygame.K_s] = player.moveDown
     engine.events[pygame.USEREVENT + evCnt()] = player.moveDown
 
+    def add_collisions(collision_list, projectile):
+        for obj in collision_list:
+            engine.collisions[obj] = (projectile, obj.getHit)
+
+    def projectile_add(projectile):
+        projectile.blocks.add(scene.impassable)
+        add_collisions(enemy_list, projectile)
+        engine.drawables.add(projectile)
+        engine.objects.append(projectile)
+
     def make_projectile_left(time):
         fire_ball = Projectile(player, "left")
-        fire_ball.blocks.add(scene.impassable)
+        projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
-        engine.objects.append(fire_ball)
-        engine.drawables.add(fire_ball)
-        engine.events[pygame.USEREVENT + 1000] = fire_ball.shoot_left
+        engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
 
     def make_projectile_right(time):
         fire_ball = Projectile(player, "right")
-        fire_ball.blocks.add(scene.impassable)
+        projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
-        engine.objects.append(fire_ball)
-        engine.drawables.add(fire_ball)
-        engine.events[pygame.USEREVENT + 1030] = fire_ball.shoot_right
+        engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
 
     def make_projectile_up(time):
         fire_ball = Projectile(player, "up")
-        fire_ball.blocks.add(scene.impassable)
+        projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
-        # engine.collisions[enemy1] = (fire_ball, enemy1.getHit())
-        engine.objects.append(fire_ball)
-        engine.drawables.add(fire_ball)
-        engine.events[pygame.USEREVENT + 1010] = fire_ball.shoot_up
+        engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
 
     def make_projectile_down(time):
         fire_ball = Projectile(player, "down")
-        fire_ball.blocks.add(scene.impassable)
+        projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
-        engine.objects.append(fire_ball)
-        engine.drawables.add(fire_ball)
-        engine.events[pygame.USEREVENT + 1020] = fire_ball.shoot_down
+        engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
 
     # Key event function for projectile and set timer
     engine.key_events[pygame.K_j] = make_projectile_left
@@ -141,17 +133,23 @@ def main():
     # Auto movement for enemy1
     move_enemy1 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy1, 500)
-    engine.events[move_enemy1] = enemy1.move
+    # engine.events[move_enemy1] = enemy1.move
+    engine.events[move_enemy1] = enemy1.move_random
 
     move_enemy2 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy2, 500)
-    engine.events[move_enemy2] = enemy2.move
+    # engine.events[move_enemy2] = enemy2.move
+    engine.events[move_enemy2] = enemy2.move_random
 
     move_enemy3 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy3, 500)
-    engine.events[move_enemy3] = enemy3.move
+    # engine.events[move_enemy3] = enemy3.move
+    engine.events[move_enemy3] = enemy3.move_random
 
-
+    move_enemy4 = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_enemy4, 500)
+    # engine.events[move_enemy3] = enemy3.move
+    engine.events[move_enemy3] = enemy3.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit
