@@ -6,6 +6,7 @@ import sys
 import helperFuncs
 from enemy.Enemy import Enemy
 from projectile import Projectile
+from FinalBoss.dark_knight.Boss import Boss
 
 sys.path.append('.')
 from engine.league import league
@@ -42,13 +43,15 @@ def main():
 
     # Create player & enemy
     player = Player(2, 350, 350)
+    dark_knight = Boss(2, 300, 300)
     enemy1 = Enemy(2, 80, 170)
     enemy2 = Enemy(2, 650, 200)
     enemy3 = Enemy(2, 55, 550)
     enemy4 = Enemy(2, 450, 650)
     enemy5 = Enemy(2, 375, 125)
-    enemy_list = [enemy1, enemy2, enemy3, enemy4, enemy5]
-    character_list = [enemy1, enemy2, enemy3, enemy4, enemy5, player]
+    enemy_list = [enemy1, enemy2, enemy3, enemy4, enemy5, dark_knight]
+    num_enemy = (len(enemy_list) - 1)
+    character_list = [enemy1, enemy2, enemy3, enemy4, enemy5, player, dark_knight]
 
     def engine_add(characters):
         for obj in characters:
@@ -68,6 +71,9 @@ def main():
     # Set locations of characters
     player.rect.x = 350
     player.rect.y = 350
+
+    dark_knight.rect.x = 300
+    dark_knight.rect.y = 300
 
     enemy1.rect.x = 200
     enemy1.rect.y = 200
@@ -125,11 +131,16 @@ def main():
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
 
+    def zombie_kill(time):
+        print(str(Enemy.num_zombies))
+
     # Key event function for projectile and set timer
     engine.key_events[pygame.K_j] = make_projectile_left
     engine.key_events[pygame.K_i] = make_projectile_up
     engine.key_events[pygame.K_k] = make_projectile_down
     engine.key_events[pygame.K_l] = make_projectile_right
+    # Used for debugging
+    engine.key_events[pygame.K_SPACE] = zombie_kill
 
     # Auto movement for enemy1
     move_enemy1 = pygame.USEREVENT + evCnt()
@@ -156,6 +167,11 @@ def main():
     pygame.time.set_timer(move_enemy5, 500)
     engine.events[move_enemy5] = enemy5.move
     # engine.events[move_enemy5] = enemy5.move_random
+
+    move_knight = pygame.USEREVENT + evCnt()
+    pygame.time.set_timer(move_knight, 1000)
+    # engine.events[move_knight] = dark_knight.move
+    engine.events[move_knight] = dark_knight.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit

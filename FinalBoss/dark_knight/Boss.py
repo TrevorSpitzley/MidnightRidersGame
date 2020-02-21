@@ -12,7 +12,7 @@ class Boss(Character):
         super().__init__(z, x, y)
         self.health = 200  # My Health
         self.lastHit = pygame.time.get_ticks()  # Last booboo
-        self.delta = 128  # BIGGER = FASTER
+        self.delta = (128 * 4)  # BIGGER = FASTER
         self.x = x
         self.y = y
         self._layer = 51
@@ -21,7 +21,7 @@ class Boss(Character):
         # self.rect.y = y
 
         # Image!!!
-        self.image = pygame.image.load().convert_alpha()
+        self.image = pygame.image.load('./FinalBoss/dark_knight_frames/idle_frames/frame_00_delay-0.14s.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (36, 36))
         self.rect = self.image.get_rect()
 

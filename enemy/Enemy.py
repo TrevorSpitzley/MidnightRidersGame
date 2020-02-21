@@ -6,6 +6,7 @@ from engine.league.league.settings import Settings
 
 
 class Enemy(Character):
+    num_zombies = 0
 
     def __init__(self, z, x, y):
         # Put z first to mimic his character.py and game_objects.py class
@@ -19,6 +20,8 @@ class Enemy(Character):
         self.y = y
         self.move_count = 0
         self._layer = 50
+        self.alive = True
+        Enemy.num_zombies += 1
 
         # Image
         self.image = pygame.image.load('./sprites/EnemySprite/zombie.png').convert_alpha()
@@ -136,6 +139,9 @@ class Enemy(Character):
     def getHit(self):
         self.collisions = []
         now = pygame.time.get_ticks()
+        if self.alive:
+            Enemy.num_zombies -= 1
+            self.alive = False
         if now - self.lastHit > 300 and self.health > 0:
             self.health = self.health - 10
             self.lastHit = now
