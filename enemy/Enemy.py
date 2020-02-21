@@ -11,7 +11,7 @@ class Enemy(Character):
         # Put z first to mimic his character.py and game_objects.py class
         super().__init__(z, x, y)
         # My Health
-        self.health = 10
+        self.health = 9
         self.lastHit = pygame.time.get_ticks()
         # BIGGER = FASTER
         self.delta = (128 * 3)
@@ -19,8 +19,6 @@ class Enemy(Character):
         self.y = y
         self.move_count = 0
         self._layer = 50
-
-        Settings.key_repeat = 1
 
         # Image
         self.image = pygame.image.load('./sprites/EnemySprite/zombie.png').convert_alpha()
@@ -79,7 +77,7 @@ class Enemy(Character):
 
     def move(self, time):
         amount = self.delta * time
-        if self.health != 0:
+        if self.health > 0:
             if self.move_count == 6 or self.move_count == 7:
                 if self.move_count == 7:
                     # move up
@@ -107,7 +105,7 @@ class Enemy(Character):
     def move_random(self, time):
         amount = self.delta * time
         move_count = rnd.randint(0, 3)
-        if self.health != 0:
+        if self.health > 0:
             if move_count == 3:
                 # move up
                 self.y = self.y - amount
@@ -122,9 +120,13 @@ class Enemy(Character):
                 self.x = self.x + amount
 
     def update(self, time):
+        if self.health <= 0:
+            self.death_change(1)
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.collisions = []
         self.rect.x = self.x
         self.rect.y = self.y
-        self.collisions = []
         for sprite in self.blocks:
             self.collider.rect.x = sprite.x
             self.collider.rect.y = sprite.y
@@ -137,6 +139,3 @@ class Enemy(Character):
         if now - self.lastHit > 300 and self.health > 0:
             self.health = self.health - 10
             self.lastHit = now
-            # print("Health is" + str(self.health))
-        if self.health <= 0:
-            self.death_change(1)
