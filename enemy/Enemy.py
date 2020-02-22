@@ -80,26 +80,26 @@ class Enemy(Character):
                 return
 
     def move(self, time):
-        tile = self.path[1]
-        enPos = (int(self.x/78), int(self.y/78))
-
-        amount = self.delta * time
-        if self.health != 0:    
-            if tile[0] > enPos[0]:
-                self.x = self.x + amount
+        if(len(self.path) > 1):
+            tile = self.path[1]
+            enPos = (int(self.x/78), int(self.y/78))
+            amount = self.delta * time
+            if self.health != 0:    
+                if tile[0] > enPos[0]:
+                    self.x = self.x + amount
             
-            elif tile[0] < enPos[0]:
-                self.x = self.x - amount
-            else:
-                self.x = self.x
+                elif tile[0] < enPos[0]:
+                    self.x = self.x - amount
+                else:
+                    self.x = self.x
 
-            if tile[1] > enPos[1]:
-                self.y = self.y + amount
+                if tile[1] > enPos[1]:
+                    self.y = self.y + amount
             
-            elif tile[1] < enPos[1]:
-                self.y = self.y - amount
-            else:
-                self.y = self.y
+                elif tile[1] < enPos[1]:
+                    self.y = self.y - amount
+                else:
+                    self.y = self.y
     def move_random(self, time):
         amount = self.delta * time
         move_count = rnd.randint(0, 3)

@@ -106,7 +106,8 @@ class EnemyController():
         for enemy in self.enemy_list:
             playerPos = (int(self.player.x/78), int(self.player.y/78))
             enemyPos = (int(enemy.x/78), int(enemy.y/78))
-            path = astar(self.enemyMap, enemyPos, playerPos)
+            #path = astar(self.enemyMap, enemyPos, playerPos)
+            path = [(0,0),playerPos]
             enemy.setPath(path)
 
 
