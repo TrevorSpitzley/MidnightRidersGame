@@ -3,6 +3,8 @@ import sys
 sys.path.append('..')
 from engine.league import league
 import game
+#import menuEngine
+
 
 def main():
 
@@ -47,9 +49,6 @@ def main():
     # Quit function
     engine.events[pygame.QUIT] = quit
     engine.key_events[pygame.K_RETURN] = quit
-
-    #pygame.mixer.music.load('./Spartacus.ogg')
-    #pygame.mixer.music.play(-1)
 
     engine.showIntro(introScreens)
 
