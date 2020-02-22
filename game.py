@@ -169,7 +169,7 @@ def main():
     # engine.events[move_enemy5] = enemy5.move_random
 
     move_knight = pygame.USEREVENT + evCnt()
-    pygame.time.set_timer(move_knight, 1000)
+    pygame.time.set_timer(move_knight, 2000)
     # engine.events[move_knight] = dark_knight.move
     engine.events[move_knight] = dark_knight.move_random
 
