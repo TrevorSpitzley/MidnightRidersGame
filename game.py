@@ -43,15 +43,14 @@ def main():
 
     # Create player & enemy
     player = Player(2, 350, 350)
-    dark_knight = Boss(2, 300, 300)
     enemy1 = Enemy(2, 80, 170)
     enemy2 = Enemy(2, 650, 200)
     enemy3 = Enemy(2, 55, 550)
     enemy4 = Enemy(2, 450, 650)
     enemy5 = Enemy(2, 375, 125)
-    enemy_list = [enemy1, enemy2, enemy3, enemy4, enemy5, dark_knight]
+    enemy_list = [enemy1, enemy2, enemy3, enemy4, enemy5]
     num_enemy = (len(enemy_list) - 1)
-    character_list = [enemy1, enemy2, enemy3, enemy4, enemy5, player, dark_knight]
+    character_list = [enemy1, enemy2, enemy3, enemy4, enemy5, player]
 
     def engine_add(characters):
         for obj in characters:
@@ -71,9 +70,6 @@ def main():
     # Set locations of characters
     player.rect.x = 350
     player.rect.y = 350
-
-    dark_knight.rect.x = 300
-    dark_knight.rect.y = 300
 
     enemy1.rect.x = 200
     enemy1.rect.y = 200
@@ -112,27 +108,46 @@ def main():
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
+        make_boss()
 
     def make_projectile_right(time):
         fire_ball = Projectile(player, "right")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
+        make_boss()
 
     def make_projectile_up(time):
         fire_ball = Projectile(player, "up")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
+        make_boss()
 
     def make_projectile_down(time):
         fire_ball = Projectile(player, "down")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
+        make_boss()
 
     def zombie_kill(time):
         print(str(Enemy.num_zombies))
+
+    def make_boss():
+        if Enemy.num_zombies == 0 and Boss.spawned is False:
+            Boss.spawned = True
+            dark_knight = Boss(2, 300, 300)
+            dark_knight.rect.x = 300
+            dark_knight.rect.y = 300
+            dark_knight.blocks.add(scene.impassable)
+            dark_knight.blocks.add(scene.impassable.sprites())
+            engine.drawables.add(dark_knight)
+            engine.objects.append(dark_knight)
+            move_knight = pygame.USEREVENT + evCnt()
+            pygame.time.set_timer(move_knight, 1000)
+            # engine.events[move_knight] = dark_knight.move
+            engine.events[move_knight] = dark_knight.move_random
 
     # Key event function for projectile and set timer
     engine.key_events[pygame.K_j] = make_projectile_left
@@ -167,11 +182,6 @@ def main():
     pygame.time.set_timer(move_enemy5, 500)
     engine.events[move_enemy5] = enemy5.move
     # engine.events[move_enemy5] = enemy5.move_random
-
-    move_knight = pygame.USEREVENT + evCnt()
-    pygame.time.set_timer(move_knight, 2000)
-    # engine.events[move_knight] = dark_knight.move
-    engine.events[move_knight] = dark_knight.move_random
 
     # Quit function
     engine.events[pygame.QUIT] = quit
