@@ -8,11 +8,15 @@ import  sys
 sys.path.append('.')
 from engine.league.league.settings import *
 from engine.league.league import *
+from helperFuncs import eventNum
 
 class menuEngine(Engine):
 
-    #background color for intro
+    # This is the event counter for our manually created events, call with evCnt()
+    evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
+    def __init__(self, title):
+        super().__init__(title)
 
 
     def setMenus(self, background, mainMenu, selectionMenus):
@@ -26,7 +30,8 @@ class menuEngine(Engine):
 
     def setSelectLocations(self, selectorLocations):
         self.selectorLocations = selectorLocations
-        self.numSelectOptions = len(selectorLocations)
+        self.numSelectOptions = len(selectorLocations) - 1
+        self.currentSelection = 0
 
     def setSelectorSprite(self, selectorSprite, x, y):
         self.selectorSprite = selectorSprite
@@ -48,8 +53,21 @@ class menuEngine(Engine):
         else:
             self.selectCounter = self.selectCounter + 1
 
-    def changeSelection(self):
+    def changeSelectionBack(self, time):
+        self.currentSelection = self.currentSelection - 1
 
+        if (self.currentSelection < 0):
+            self.currentSelection = self.numSelectOptions
+
+        print(self.currentSelection)
+
+    def changeSelectionForward(self, time):
+        self.currentSelection = self.currentSelection + 1
+
+        if (self.currentSelection > self.numSelectOptions):
+            self.currentSelection = 0
+
+            print(self.currentSelection)
 
     def playMusic(self):
         pygame.mixer.music.play(-1)
@@ -106,6 +124,7 @@ class menuEngine(Engine):
                 time.sleep(.01)
             time.sleep(darkTime)
 
+        #add engine events and key events
 
     def run(self):
         """The main menu loop, which makes animating the menu possible"""
@@ -131,7 +150,7 @@ class menuEngine(Engine):
 
             self.showMenu()
             self.iterateSelectorSprite()
-            self.screen.blit(self.currentSelectorImage, self.selectorLocations[0])
+            self.screen.blit(self.currentSelectorImage, self.selectorLocations[self.currentSelection])
 
             # Generate outputs
             # d.update()

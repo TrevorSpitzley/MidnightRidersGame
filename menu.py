@@ -4,19 +4,34 @@ sys.path.append('..')
 from engine.league import league
 import game
 import menuEngine
+from helperFuncs import eventNum
 
 
 def main():
 
-    def iterateMenuScreen():
-        return  0
+    # This is the event counter for our manually created events, call with evCnt()
+    evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
 
     engine = menuEngine.menuEngine("Midnight Riders")
 
     league.Settings.height = 768
     league.Settings.width = 768
+    league.Settings.key_repeat = 1000
     engine.init_pygame()
+
+    def changeSelectionBack(self):
+        engine.currentSelection = engine.currentSelection - 1
+
+        if (engine.currentSelection < 0):
+            engine.currentSelection = engine.numSelectOptions
+
+    def changeSelectionForward(self):
+        engine.currentSelection = engine.currentSelection + 1
+
+        if (engine.currentSelection > engine.numSelectOptions):
+            engine.currentSelection = 0
+
 
     #load images
     gameIcon = pygame.image.load('./background/passive2.png').convert_alpha()
@@ -31,7 +46,7 @@ def main():
     selectMenuScreens = [menuPlay, menuCredits, menuQuit]
 
     #set selector locations for choosing menu items
-    selectLocations = [(75, 125), (75, 300), (75, 550)]
+    selectLocations = [(75, 125), (75, 290), (75, 460)]
     engine.setSelectLocations(selectLocations)
 
     #set intro screens to array
@@ -66,6 +81,14 @@ def main():
     engine.key_events[pygame.K_RETURN] = quit
 
     engine.showIntro(introScreens, 24.6)
+
+    #add events
+    engine.key_events[pygame.K_ESCAPE] = quit
+    engine.events[pygame.USEREVENT + 1] = changeSelectionBack
+    engine.key_events[pygame.K_UP] = changeSelectionBack
+    engine.events[pygame.USEREVENT + 2] = changeSelectionForward
+    engine.key_events[pygame.K_DOWN] = changeSelectionForward
+
 
     engine.run()
 
