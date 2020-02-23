@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 from engine.league import league
 import game
-#import menuEngine
+import menuEngine
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
         return  0
 
 
-    engine = league.menuEngine("Midnight Riders")
+    engine = menuEngine.menuEngine("Midnight Riders")
 
     league.Settings.height = 768
     league.Settings.width = 768
@@ -30,14 +30,29 @@ def main():
     #set selection-representing versions of menu images into an array for iteration
     selectMenuScreens = [menuPlay, menuCredits, menuQuit]
 
+    #set selector locations for choosing menu items
+    selectLocations = [(75, 125), (75, 300), (75, 550)]
+    engine.setSelectLocations(selectLocations)
+
     #set intro screens to array
-    introScreens = [midnightRidersLogo]
+    introScreens = [midnightRidersLogo, midnightRidersLogo, midnightRidersLogo]
 
     #add menus to menu engine
     engine.setMenus(mainBack, menuDef, selectMenuScreens)
 
     #set menu music
     engine.setMusic('./Spartacus.ogg')
+
+    #set selector sprites and locations
+    selectorImages = []
+    for i in range(61):
+        if(i < 10):
+            imageNum = "00" + str(i)
+        else:
+            imageNum = "0" + str(i)
+        temp = "./sprites/menuSelector/tile" + imageNum + ".png"
+        selectorImages.append(temp)
+    engine.setSelectorSprite(selectorImages, 110, 110)
 
 
     #set game icon
@@ -50,7 +65,7 @@ def main():
     engine.events[pygame.QUIT] = quit
     engine.key_events[pygame.K_RETURN] = quit
 
-    engine.showIntro(introScreens)
+    engine.showIntro(introScreens, 24.6)
 
     engine.run()
 
