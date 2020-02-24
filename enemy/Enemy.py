@@ -71,8 +71,6 @@ class Enemy(Character):
                            './sprites/EnemySprite/enemy_death_frames/frame24.png']
 
     def death_change(self, time):
-        if self.alive is True and self.health <= 0:
-            Enemy.num_zombies -= 1
         if self.death < 24:
             self.image = pygame.image.load(self.death_mode[self.death]).convert_alpha()
             self.image = pygame.transform.scale(self.image, (24, 36))
@@ -139,6 +137,9 @@ class Enemy(Character):
     def getHit(self):
         self.collisions = []
         now = pygame.time.get_ticks()
+        if self.alive is True and self.health <= 0:
+            Enemy.num_zombies -= 1
+            self.alive = False
         if now - self.lastHit > 300 and self.health > 0:
             self.health = self.health - 10
             self.lastHit = now

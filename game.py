@@ -145,7 +145,7 @@ def main():
         make_boss()
 
     def make_boss():
-        if Enemy.num_zombies == 0 and Boss.spawned is False:
+        if Enemy.num_zombies <= 0 and Boss.spawned is False:
             Boss.spawned = True
             dark_knight = Boss(2, 300, 300)
             dark_knight.rect.x = 300
