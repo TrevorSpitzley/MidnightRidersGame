@@ -58,6 +58,7 @@ def main():
     menuQuit= pygame.image.load('./background/cyberpunk-street-files/PNG/menuQuit.png').convert_alpha()
     midnightRidersLogo = pygame.image.load('./introScreens/midnightRiders.png').convert()
     bigTrevLogo = pygame.image.load('./introScreens/bigTrev.png').convert()
+    johnSKLogo = pygame.image.load('./introScreens/johnSK.png').convert()
 
 
     #set selection-representing versions of menu images into an array for iteration
@@ -68,7 +69,7 @@ def main():
     engine.setSelectLocations(selectLocations)
 
     #set intro screens to array
-    introScreens = [midnightRidersLogo, bigTrevLogo, midnightRidersLogo]
+    introScreens = [midnightRidersLogo, bigTrevLogo, johnSKLogo]
 
     #add menus to menu engine
     engine.setMenus(mainBack, menuDef, selectMenuScreens)
@@ -90,6 +91,9 @@ def main():
 
     #set game icon
     pygame.display.set_icon(gameIcon)
+
+    #setup bonus show offy stuff, can totally ignore
+    engine.setupBonusImages()
 
     def quit(self):
         engine.running = False

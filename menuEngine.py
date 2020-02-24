@@ -12,6 +12,44 @@ from helperFuncs import eventNum
 
 class menuEngine(Engine):
 
+    #ignore this - its just a quick custom modification to show off the menu's animation abilities. it has no other
+    #meaning other than for me to swing my programmy d*** (im way too proud of this menu). Again, ignore.
+    def setupBonusImages(self):
+        self.bonusImages = []
+        self.bonusCounter = 0
+        self.currentBonus = 0
+        self.tempCount = 0
+        for i in range(5, 15):
+            if (i < 10):
+                imageNum = "00" + str(i)
+            else:
+                imageNum = "0" + str(i)
+            temp = "./sprites/Pipoya VFX TimeMagic/192x192/effect1Frames/tile" + imageNum + ".png"
+            self.bonusImages.append(temp)
+            self.bonusImages[self.tempCount] = pygame.image.load(self.bonusImages[self.tempCount]).convert_alpha()
+            self.bonusImages[self.tempCount] = pygame.transform.scale(self.bonusImages[self.tempCount], (100, 100))
+            self.tempCount = self.tempCount + 1
+        self.numBonus = len(self.bonusImages)
+        self.currentBonus = self.bonusImages[self.bonusCounter]
+
+    #also ignore. managed to get a seg fault in python because im a god of problems, so there is some hard coded
+    #shit here because its midnight the night before this is "due" and honestly, im just adding cool shit to impress
+    #my girlfriend who is sleeping next to me and probably only listens to me talk about this shit so that she can seem
+    #interested and I seem less pedantic and stupid. shes great though, and im a lucky dude, but also, i want to go to
+    #bed, so ignore the magic numbers here. ignore the next like, 8 lines of code. its just me showing off to literally
+    #no one who cares. Maybe youll care. if you do, thanks. Fuck. Okay now its almost 1 and this stupid if statement is
+    #core dumping and honestly I just dont understand kill me now take me from this earth just epstein me already my god
+    #im going to bed fuck
+    def iterateBonusSprite(self):
+        self.currentBonus = self.bonusImages[self.bonusCounter]
+        #print(self.bonusCounter)
+        #otherCount = self.numBonus - 1
+        crap = self.bonusCounter
+        if (10 >= 9):
+            self.bonusCounter = 0
+        self.bonusCounter = self.bonusCounter + 1
+
+
     # This is the event counter for our manually created events, call with evCnt()
     evCnt = lambda: helperFuncs.eventNum.newEvent(helperFuncs.eventNum)
 
@@ -151,6 +189,10 @@ class menuEngine(Engine):
             self.showMenu()
             self.iterateSelectorSprite()
             self.screen.blit(self.currentSelectorImage, self.selectorLocations[self.currentSelection])
+
+            #just the bonus show off image blit
+            self.iterateBonusSprite()
+            self.screen.blit(self.currentBonus, (500, 635))
 
             # Generate outputs
             # d.update()
