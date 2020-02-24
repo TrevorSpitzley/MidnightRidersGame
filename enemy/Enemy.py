@@ -20,6 +20,7 @@ class Enemy(Character):
         self.y = y
         self.move_count = 0
         self._layer = 50
+        self.alive = True
         Enemy.num_zombies += 1
 
         self.path = [[0,0],[int(self.x/78), int(self.y/78)]]
@@ -70,6 +71,8 @@ class Enemy(Character):
                            './sprites/EnemySprite/enemy_death_frames/frame24.png']
 
     def death_change(self, time):
+        if self.alive is True and self.health <= 0:
+            Enemy.num_zombies -= 1
         if self.death < 24:
             self.image = pygame.image.load(self.death_mode[self.death]).convert_alpha()
             self.image = pygame.transform.scale(self.image, (24, 36))
