@@ -4,8 +4,7 @@ sys.path.append('..')
 from engine.league import league
 import game
 import menuEngine
-from helperFuncs import eventNum
-
+import helperFuncs
 
 def main():
 
@@ -17,8 +16,9 @@ def main():
 
     league.Settings.height = 768
     league.Settings.width = 768
-    league.Settings.key_repeat = 1000
     engine.init_pygame()
+    pygame.key.set_repeat(330)
+
 
     def changeSelectionBack(self):
         engine.currentSelection = engine.currentSelection - 1
@@ -26,11 +26,27 @@ def main():
         if (engine.currentSelection < 0):
             engine.currentSelection = engine.numSelectOptions
 
+
     def changeSelectionForward(self):
         engine.currentSelection = engine.currentSelection + 1
 
         if (engine.currentSelection > engine.numSelectOptions):
             engine.currentSelection = 0
+
+
+    def select(self):
+        if (engine.currentSelection == 0):
+            pygame.mixer.music.stop()
+            game.main()
+            quit(self)
+
+        elif(engine.currentSelection == 1):
+            #play credits
+            pass
+
+        elif(engine.currentSelection == 2):
+            quit(self)
+
 
 
     #load images
@@ -78,22 +94,20 @@ def main():
 
     # Quit function
     engine.events[pygame.QUIT] = quit
-    engine.key_events[pygame.K_RETURN] = quit
 
     engine.showIntro(introScreens, 24.6)
 
     #add events
     engine.key_events[pygame.K_ESCAPE] = quit
-    engine.events[pygame.USEREVENT + 1] = changeSelectionBack
+    engine.events[pygame.USEREVENT + evCnt()] = changeSelectionBack
     engine.key_events[pygame.K_UP] = changeSelectionBack
-    engine.events[pygame.USEREVENT + 2] = changeSelectionForward
+    engine.events[pygame.USEREVENT + evCnt()] = changeSelectionForward
     engine.key_events[pygame.K_DOWN] = changeSelectionForward
+    engine.key_events[pygame.K_RETURN] = select
+    engine.events[pygame.USEREVENT + evCnt()] = select
 
 
     engine.run()
-
-    if (False):
-        game.main()
 
 if __name__ == '__main__':
     main()
