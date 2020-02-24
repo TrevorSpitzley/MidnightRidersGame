@@ -4,6 +4,7 @@
 import pygame
 import sys
 import helperFuncs
+from FinalBoss.dark_knight.Boss import Boss
 from enemy.Enemy import Enemy
 from enemy.EnemyController import EnemyController
 from projectile import Projectile
@@ -120,24 +121,43 @@ def main():
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_left
+        make_boss()
 
     def make_projectile_right(time):
         fire_ball = Projectile(player, "right")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_right
+        make_boss()
 
     def make_projectile_up(time):
         fire_ball = Projectile(player, "up")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_up
+        make_boss()
 
     def make_projectile_down(time):
         fire_ball = Projectile(player, "down")
         projectile_add(fire_ball)
         fire_ball.shoot_left(pygame.time.get_ticks())
         engine.events[pygame.USEREVENT + evCnt()] = fire_ball.shoot_down
+        make_boss()
+
+    def make_boss():
+        if Enemy.num_zombies == 0 and Boss.spawned is False:
+            Boss.spawned = True
+            dark_knight = Boss(2, 300, 300)
+            dark_knight.rect.x = 300
+            dark_knight.rect.y = 300
+            dark_knight.blocks.add(scene.impassable)
+            dark_knight.blocks.add(scene.impassable.sprites())
+            engine.drawables.add(dark_knight)
+            engine.objects.append(dark_knight)
+            move_knight = pygame.USEREVENT + evCnt()
+            pygame.time.set_timer(move_knight, 1000)
+            # engine.events[move_knight] = dark_knight.move
+            engine.events[move_knight] = dark_knight.move_random
 
     # Key event function for projectile and set timer
     engine.key_events[pygame.K_j] = make_projectile_left

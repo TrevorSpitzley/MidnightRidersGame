@@ -6,6 +6,7 @@ sys.path.append('..')
 
 
 class Boss(Character):
+    spawned = False
 
     def __init__(self, z, x, y):
         # Put z first to mimic his character.py and game_objects.py class
@@ -89,3 +90,10 @@ class Boss(Character):
             self.collider.rect.y = sprite.y
             if pygame.sprite.collide_rect(self, self.collider):
                 self.collisions.append(sprite)
+
+    def getHit(self):
+        self.collisions = []
+        now = pygame.time.get_ticks()
+        if now - self.lastHit > 300 and self.health > 0:
+            self.health = self.health - 10
+            self.lastHit = now

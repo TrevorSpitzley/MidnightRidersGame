@@ -6,6 +6,7 @@ from engine.league.league.settings import Settings
 
 
 class Enemy(Character):
+    num_zombies = 0
 
     def __init__(self, z, x, y):
         # Put z first to mimic his character.py and game_objects.py class
@@ -19,10 +20,9 @@ class Enemy(Character):
         self.y = y
         self.move_count = 0
         self._layer = 50
+        Enemy.num_zombies += 1
 
         self.path = [[0,0],[int(self.x/78), int(self.y/78)]]
-
-        Settings.key_repeat = 1
 
         # Image
         self.image = pygame.image.load('./sprites/EnemySprite/zombie.png').convert_alpha()
