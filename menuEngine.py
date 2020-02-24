@@ -191,7 +191,7 @@ class menuEngine(Engine):
             self.screen.blit(self.currentSelectorImage, self.selectorLocations[self.currentSelection])
 
             #just the bonus show off image blit
-            self.iterateBonusSprite()
+            #self.iterateBonusSprite()
             self.screen.blit(self.currentBonus, (500, 635))
 
             # Generate outputs
