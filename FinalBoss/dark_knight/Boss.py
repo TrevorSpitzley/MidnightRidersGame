@@ -22,7 +22,7 @@ class Boss(Character):
         # self.rect.y = y
 
         # Image!!!
-        self.image = pygame.image.load().convert_alpha()
+        self.image = pygame.image.load('./FinalBoss/dark_knight_frames/idle_frames/frame_00_delay-0.14s.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (36, 36))
         self.rect = self.image.get_rect()
 
@@ -39,7 +39,7 @@ class Boss(Character):
 
     def move(self, time):
         amount = self.delta * time
-        if self.health != 0:
+        if self.health > 0:
             if self.move_count == 6 or self.move_count == 7:
                 if self.move_count == 7:
                     # move up
@@ -67,7 +67,7 @@ class Boss(Character):
     def move_random(self, time):
         amount = self.delta * time
         move_count = rnd.randint(0, 3)
-        if self.health != 0:
+        if self.health > 0:
             if move_count == 3:
                 # move up
                 self.y = self.y - amount

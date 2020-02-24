@@ -84,7 +84,7 @@ class Enemy(Character):
             tile = self.path[1]
             enPos = (int(self.x/78), int(self.y/78))
             amount = self.delta * time
-            if self.health != 0:    
+            if self.health > 0:
                 if tile[0] > enPos[0]:
                     self.x = self.x + amount
             
@@ -100,10 +100,11 @@ class Enemy(Character):
                     self.y = self.y - amount
                 else:
                     self.y = self.y
+
     def move_random(self, time):
         amount = self.delta * time
         move_count = rnd.randint(0, 3)
-        if self.health != 0:
+        if self.health > 0:
             if move_count == 3:
                 # move up
                 self.y = self.y - amount
@@ -118,6 +119,11 @@ class Enemy(Character):
                 self.x = self.x + amount
 
     def update(self, time):
+        if self.health <= 0:
+            self.death_change(1)
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.collisions = []
         self.rect.x = self.x
         self.rect.y = self.y
         self.collisions = []
@@ -133,9 +139,6 @@ class Enemy(Character):
         if now - self.lastHit > 300 and self.health > 0:
             self.health = self.health - 10
             self.lastHit = now
-            # print("Health is" + str(self.health))
-        if self.health <= 0:
-            self.death_change(1)
 
     def setPath(self, path):
         self.path = path
