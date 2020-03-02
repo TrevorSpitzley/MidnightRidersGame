@@ -2,6 +2,7 @@ import pygame
 import sys
 from engine.league.league import *
 import random as rnd
+from pygame import mixer
 sys.path.append('..')
 
 
@@ -37,7 +38,8 @@ class Boss(Character):
         self.collider.image = pygame.Surface([Settings.tile_size, Settings.tile_size], pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
 
-        # Death animation and counter
+        # Death animation and counter and hit noise
+        self.hit_noise = mixer.Sound('./wav_files/Explosion14.wav')
         self.death = 0
         self.death_mode = ['./FinalBoss/dark_knight_frames/enemy_death_frames/frame0.png',
                            './FinalBoss/dark_knight_frames/enemy_death_frames/frame1.png',
@@ -143,6 +145,7 @@ class Boss(Character):
     def getHit(self):
         self.collisions = []
         now = pygame.time.get_ticks()
-        if now - self.lastHit > 300 and self.health > 0:
+        if now - self.lastHit > 1000 and self.health > 0:
+            self.hit_noise.play()
             self.health = self.health - 10
             self.lastHit = now
