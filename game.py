@@ -162,6 +162,9 @@ def main():
             pygame.time.set_timer(move_knight, 1000)
             # engine.events[move_knight] = dark_knight.move
             engine.events[move_knight] = dark_knight.move_random
+            mixer.music.stop()
+            mixer.music.load('./ogg_files/beach.ogg')
+            mixer.music.play(-1)
 
     # Key event function for projectile and set timer
     engine.key_events[pygame.K_j] = make_projectile_left
@@ -169,11 +172,9 @@ def main():
     engine.key_events[pygame.K_k] = make_projectile_down
     engine.key_events[pygame.K_l] = make_projectile_right
 
-
     path_enemy = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(path_enemy, 3000)
     engine.events[path_enemy] = enemyController.findPath
-
     
     move_enemy1 = pygame.USEREVENT + evCnt()
     pygame.time.set_timer(move_enemy1, 500)

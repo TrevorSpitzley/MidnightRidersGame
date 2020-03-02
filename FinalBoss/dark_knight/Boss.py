@@ -39,34 +39,31 @@ class Boss(Character):
 
         # Death animation and counter
         self.death = 0
-        ~/PycharmProjects/MidnightRidersGame
-        self.death_mode = ['~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame0.png',
-                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame1.png',
-                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame2.png',
-                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame3.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame4.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame5.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame6.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame7.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame8.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame9.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame10.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame11.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame12.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame13.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame14.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame15.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame16.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame17.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame18.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame19.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame20.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame21.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame22.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame23.png',
-                           './sprites/EnemySprite/enemy_death_frames/frame24.png']
-
-
+        self.death_mode = ['./FinalBoss/dark_knight_frames/enemy_death_frames/frame0.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame1.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame2.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame3.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame4.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame5.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame6.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame7.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame8.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame9.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame10.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame11.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame12.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame13.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame14.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame15.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame16.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame17.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame18.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame19.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame20.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame21.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame22.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame23.png',
+                           './FinalBoss/dark_knight_frames/enemy_death_frames/frame24.png']
 
     def death_change(self, time):
         if self.death < 24:
