@@ -16,14 +16,14 @@ class Boss(Character):
         self.delta = (128 * 8)  # BIGGER = FASTER
         self.x = x
         self.y = y
-        self._layer = 51
+        self._layer = 50
         self.move_count = 0
         # self.rect.x = x
         # self.rect.y = y
 
         # Image!!!
         self.image = pygame.image.load('./FinalBoss/dark_knight_frames/idle_frames/frame_00_delay-0.14s.png').convert_alpha()
-        self.image = pygame.transform.scale(self.image, (60, 60))
+        self.image = pygame.transform.scale(self.image, (84, 84))
         self.rect = self.image.get_rect()
 
         # World size, and collisions
@@ -36,6 +36,47 @@ class Boss(Character):
         self.collider = Drawable()
         self.collider.image = pygame.Surface([Settings.tile_size, Settings.tile_size], pygame.SRCALPHA)
         self.collider.rect = self.collider.image.get_rect()
+
+        # Death animation and counter
+        self.death = 0
+        ~/PycharmProjects/MidnightRidersGame
+        self.death_mode = ['~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame0.png',
+                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame1.png',
+                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame2.png',
+                           '~/PycharmProjects/MidnightRidersGame/sprites/EnemySprite/enemy_death_frames/frame3.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame4.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame5.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame6.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame7.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame8.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame9.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame10.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame11.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame12.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame13.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame14.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame15.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame16.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame17.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame18.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame19.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame20.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame21.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame22.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame23.png',
+                           './sprites/EnemySprite/enemy_death_frames/frame24.png']
+
+
+
+    def death_change(self, time):
+        if self.death < 24:
+            self.image = pygame.image.load(self.death_mode[self.death]).convert_alpha()
+            self.image = pygame.transform.scale(self.image, (48, 48))
+            self.rect = self.image.get_rect()
+            self.death += 1
+        else:
+            if self.death >= 24:
+                return
 
     def move(self, time):
         amount = self.delta * time
@@ -82,9 +123,20 @@ class Boss(Character):
                 self.x = self.x + amount
 
     def update(self, time):
-        self.rect.x = self.x
-        self.rect.y = self.y
-        self.collisions = []
+        if self.health <= 150:
+            self.image = pygame.transform.scale(self.image, (72, 72))
+        if self.health <= 100:
+            self.image = pygame.transform.scale(self.image, (60, 60))
+        if self.health <= 50:
+            self.image = pygame.transform.scale(self.image, (48, 48))
+        if self.health <= 0:
+            self.death_change(1)
+            self.rect.x = self.x
+            self.rect.y = self.y
+        if self.health > 0:
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.collisions = []
         for sprite in self.blocks:
             self.collider.rect.x = sprite.x
             self.collider.rect.y = sprite.y
